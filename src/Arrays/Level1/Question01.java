@@ -5,7 +5,78 @@ import java.util.Arrays;
 public class Question01 {
 
     public static void main(String[] args) {
+        int[][] b = { { 8, 2, 13, 4 },
+                { 9, 16, 17, 8 },
+                { 1, 22, 3, 14 },
+                { 15, 6, 17, 8 } };
+        diagonalMatrix(b, 4);
+    }
 
+    //the Sum of Diagonals of a Matrix
+    static void diagonalMatrix(int arr[][], int n)
+    {
+        int s =0, t=0;
+        for (int i=0; i<n; i++){
+            for (int j=0; j<n; j++){
+                if (i == j)
+                    s += arr[i][j];
+
+                if ((i+j) == (n-1))
+                    t += arr[i][j];
+            }
+        }
+        System.out.println("Diagonal Matrix1 :" + s);
+        System.out.println("Diagonal Matrix2 :" + t);
+    }
+    static void rottenLeft (int arr[], int d, int n)
+    {
+        int temp []= new int[n];
+        int k=0;
+        for (int i=d; i<n; i++){
+            temp[k] = arr[i];
+            k++;
+        }
+        for (int j=0; j<d; j++){
+            temp[k] = arr[j];
+            k++;
+        }
+        for (int i=0; i<n; i++){
+            arr[i] = temp[i];
+        }
+    }
+    static void display(int arr[], int n)
+    {
+        for (int i=0; i<n; i++){
+            System.out.print(arr[i] + " ");
+        }
+        System.out.println();
+    }
+    static int Normal(int mat[][], int n)
+    {
+        int s =0;
+        for (int i=0; i<n; i++){
+            for (int j=0; j<n; j++)
+                s += mat[i][j] * mat[i][j];
+        }
+        return (int) Math.sqrt(s);
+    }
+    static int Trace (int mat[][], int n)
+    {
+        int c =0;
+        for (int i=0; i<n; i++){
+            c += mat[i][i];
+        }
+        return c;
+    }
+
+
+    //Find Transpose of Matrix
+    static void transpose(int arr[][], int b[][])
+    {
+        for (int i=0; i<4; i++){
+            for (int j=0; j<3; j++)
+                b[i][j] = arr[j][i];
+        }
     }
 
     //  Add Two Matrices in Java
