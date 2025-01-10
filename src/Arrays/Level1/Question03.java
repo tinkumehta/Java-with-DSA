@@ -1,14 +1,22 @@
 package Arrays.Level1;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 public class Question03 {
 
     public static void main(String[] args) {
-        int a[] = { 2, 3, 4, 10, 40 };
-        int n = a.length;
-        int x = 40;
-        System.out.println(binarySearch(a, 0, n-1, x));
+        Integer a[] = { 2, 3, 4, 10, 40 };
+        descendingOrder(a);
     }
 
+    //Java Program to Sort the Elements of an Array in Descending Order
+    static void descendingOrder(Integer a[])
+    {
+        Arrays.sort(a, Collections.reverseOrder());
+        System.out.println(Arrays.toString(a));
+
+    }
     //Methods for Java Binary Search
     static int binarySearch(int arr[], int l, int h, int x)
     {
@@ -24,4 +32,5 @@ public class Question03 {
         }
         return -1;
     }
+
 }
