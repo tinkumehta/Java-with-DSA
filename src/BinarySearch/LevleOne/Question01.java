@@ -5,10 +5,9 @@ import java.util.Arrays;
 public class Question01 {
 
     public static void main(String[] args) {
-      int num[] = {2,5,6,0,0,1,2};
-      int target = 0;
-        System.out.println(search(num, target));
+
     }
+
     public static boolean search(int[] nums, int target)
     {
        int start =0, end = nums.length;
