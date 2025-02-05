@@ -1,11 +1,15 @@
 package BinarySearch.LevleOne;
 
-public class Question02 {
+
+
+public class Question2 {
 
     public static void main(String[] args) {
+
         int arr[][] = {{1,3,5,7},{10,11,16,20},{23,30,34,60}};
         System.out.println(searchMatrix(arr, 3));
     }
+
 
     // search in two 2d matrix
     static  boolean searchMatrix(int matrix[][], int target)
@@ -19,7 +23,7 @@ public class Question02 {
             if (midCR == target){
                 return true;
             }
-             if (target < midCR) {
+            if (target < midCR) {
                 end = mid -1;
             } else {
                 st = mid +1;
@@ -27,6 +31,10 @@ public class Question02 {
         }
         return false;
     }
+
+
+
+
     // find the peak element
     static int findPeak(int num[])
     {
@@ -43,3 +51,4 @@ public class Question02 {
         return start;
     }
 }
+
