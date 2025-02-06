@@ -6,11 +6,72 @@ import java.util.Arrays;
 public class Question2 {
 
     public static void main(String[] args) {
+        int[] arr = {7,2,5,10,8};
+        int arr1[] = {1,2,3,4,5};
+        int k = 2;
+       // System.out.println(findPage(arr, k));
+        System.out.println(splitArray(arr1, k));
+    }
 
-      int arr[]=  {1,2};
-      int arr1[] = {3, 4};
-        //System.out.println(findDuplicate(arr1));
-        System.out.println(findMedianSortedArrays(arr, arr1));
+    public static int splitArray(int[] nums, int m)
+    {
+        int start =0;
+        int end =0;
+        for (int i=0; i<nums.length; i++){
+            start = Math.max(start, nums[i]);
+            end += nums[i];
+        }
+        while (start < end) {
+            int mid = start + (end - start) /2;
+            int pice =1;
+            int sum =0;
+            for (int num : nums){
+                if (sum + num > mid) {
+                    sum = num;
+                    pice++;
+                } else {
+                    sum += num;
+                }
+            }
+            if (pice > m) {
+                start = mid +1;
+            } else {
+                end = mid;
+            }
+        }
+        return end;
+    }
+    static int findPage(int arr[], int k)
+    {
+        if (arr.length <= k) return -1;
+        int lo = Arrays.stream(arr).max().getAsInt();
+        int hi = Arrays.stream(arr).sum();
+        int res = 0;
+
+        while (lo <= hi) {
+            int mid = lo + (hi - lo) /2;
+            if (check(arr, k, mid)){
+                res = mid;
+                hi = mid - 1;
+            } else {
+                lo = mid + 1;
+            }
+        }
+        return res;
+    }
+    static boolean check(int arr[], int k, int pageLimit)
+    {
+        int cnt =1;
+        int pageSum =0;
+        for (int i=0; i<arr.length; i++){
+            if (pageSum + arr[i] > pageLimit){
+                cnt++;
+                pageSum = arr[i];
+            } else {
+                pageSum += arr[i];
+            }
+        }
+        return (cnt <=k);
     }
     public static double findMedianSortedArrays(int[] nums1, int[] nums2)
     {
