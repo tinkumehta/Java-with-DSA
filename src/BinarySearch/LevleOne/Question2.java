@@ -6,13 +6,42 @@ import java.util.Arrays;
 public class Question2 {
 
     public static void main(String[] args) {
-        int[] arr = {7,2,5,10,8};
-        int arr1[] = {1,2,3,4,5};
-        int k = 2;
-       // System.out.println(findPage(arr, k));
-        System.out.println(splitArray(arr1, k));
+
     }
 
+    public static int maximizeSweetness(int[] nums, int m)
+    {
+        m++;
+        long l= Integer.MAX_VALUE, r =0;
+        for (int n : nums){
+            r += n;
+            l = Math.min(l, r);
+        }
+        while (l < r) {
+            long mid = l + (r - l) /2;
+            if (canSplit(nums, m, mid)){
+                l = mid;
+            } else {
+                r = mid -1;
+            }
+        }
+        if (canSplit(nums, m, r)) return (int) r;
+        else  return (int) l;
+    }
+    public static boolean canSplit(int nums[], int m, long target)
+    {
+        int cnt =0, sum =0;
+        for (int n : nums){
+            if (sum + n >= target){
+                sum =0;
+                cnt++;
+            } else {
+                sum +=n;
+
+            }
+        }
+        return cnt >=m;
+    }
     public static int splitArray(int[] nums, int m)
     {
         int start =0;
