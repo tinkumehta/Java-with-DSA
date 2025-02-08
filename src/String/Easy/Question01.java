@@ -3,9 +3,75 @@ import java.util.*;
 
 public class Question01 {
     public static void main(String[] args) {
-        String str [] = {"ab", "c"};
-        String str1 [] = {"a", "bc"};
-        System.out.println(arrayStringsAreEqual(str, str1));
+       // System.out.println(halvesAreAlike("book"));
+        String arr []= {"a", "abc", "bc", "d"};
+        String word = "Let's tinku muskan is my love";
+        System.out.println(reverseWords(word));
+        //System.out.println(numOfStrings(arr, word));
+      //  System.out.println(judgeCircle("UD"));
+    }
+    public static String reverseWords(String s)
+    {
+        String str []= s.split(" ");
+        int n = str.length;
+        StringBuilder st = new StringBuilder("");
+        for (int i=0; i<n; i++){
+            StringBuilder x = new StringBuilder(str[i]);
+            st.append(reverse(x));
+            if (i != n-1)
+                st.append(" ");
+        }
+        return st.toString();
+    }
+    public static String reverse(StringBuilder x)
+    {
+        return x.reverse().toString();
+    }
+    public static boolean judgeCircle(String moves)
+    {
+        int count [] = new int[128];
+        for (char ch :  moves.toCharArray()){
+            count[ch]++;
+        }
+        return count['U'] == count['D'] && count['L'] == count['R'];
+    }
+    public static int numOfStrings(String[] patterns, String word)
+    {
+        int count =0;
+        for (String res : patterns){
+            int index = word.indexOf(res);
+            if (index != -1) {
+                count++;
+            }
+        }
+        return count;
+    }
+    public static boolean halvesAreAlike(String s)
+    {
+        int count =0;
+        int count1 =0;
+        for (int i=0; i<s.length()/2; i++){
+            if (isVowel(s.charAt(i))){
+                count++;
+            }
+        }
+        for (int j=s.length()/2; j<s.length(); j++){
+            if (isVowel(s.charAt(j))){
+                count1++;
+            }
+        }
+        if (count == count1) {
+            return true;
+        }
+        return false;
+    }
+    public static boolean isVowel(char s)
+    {
+        if (s == 'a' || s== 'e' || s == 'i' || s == 'o' || s == 'u'
+                || s == 'A' || s == 'E' || s == 'I' || s == 'O' || s== 'U'){
+            return true;
+        }
+        return false;
     }
     public static boolean arrayStringsAreEqual(String[] word1, String[] word2)
     {
