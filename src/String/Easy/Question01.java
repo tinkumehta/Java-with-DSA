@@ -3,12 +3,17 @@ import java.util.*;
 
 public class Question01 {
     public static void main(String[] args) {
-       // System.out.println(halvesAreAlike("book"));
-        String arr []= {"a", "abc", "bc", "d"};
-        String word = "Let's tinku muskan is my love";
-        System.out.println(reverseWords(word));
-        //System.out.println(numOfStrings(arr, word));
-      //  System.out.println(judgeCircle("UD"));
+        System.out.println(convertToTitle(701));
+    }
+    public static String convertToTitle(int columnNumber)
+    {
+        StringBuilder str = new StringBuilder();
+        while (columnNumber > 0) {
+            int index = (columnNumber -1) % 26;
+            str.insert(0, (char) ('A' + index));
+            columnNumber = (columnNumber -1) / 26;
+        }
+        return str.toString();
     }
     public static String reverseWords(String s)
     {
