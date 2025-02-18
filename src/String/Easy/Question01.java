@@ -3,9 +3,30 @@ import java.util.*;
 
 public class Question01 {
     public static void main(String[] args) {
-       String s =  "A man, a plan, a canal: Panama";
-        //System.out.println(convertToTitle(701));
-        System.out.println(isPalindrome(s));
+        System.out.println(isValide("abc"));
+    }
+    public static boolean isValide(String s)
+    {
+        int start =0, end = s.length()-1;
+        while (start < end) {
+            if (s.charAt(start) != s.charAt(end)){
+                return isPalindrome(s, start+1, end) || isPalindrome(s, start, end-1);
+            }
+            start++;
+            end--;
+        }
+        return true;
+    }
+    private static boolean isPalindrome(String s, int left, int right)
+    {
+        while (left < right) {
+            if (s.charAt(left) != s.charAt(right)){
+                return false;
+            }
+            left++;
+            right--;
+        }
+        return true;
     }
     public static boolean isPalindrome(String s)
     {
