@@ -1,11 +1,16 @@
 package String.Easy;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Stack;
 
 public class Question02 {
     public static void main(String[] args) {
-        System.out.println(lengthOfLastWord("i am a good boy"));
+        System.out.println(multiply("123", "456"));
+    }
+    public static String multiply(String num1, String num2)
+    {
+        return new BigInteger(num1).multiply(new BigInteger(num2)).toString();
     }
     public static int lengthOfLastWord(String s)
     {
