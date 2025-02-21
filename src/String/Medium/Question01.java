@@ -4,10 +4,26 @@ import java.util.*;
 public class Question01 {
 
     public static void main(String[] args) {
-      //  System.out.println(calculate("4+3*3"));
-        String s = "abc";
-        int arr[]= {3, 5,9};
-        System.out.println(shiftingLetters(s, arr));
+        List<String> timePoints = Arrays.asList("12:30", "12:45", "12:50");
+        System.out.println(findMinDifference(timePoints));
+
+    }
+    public static int findMinDifference(List<String> timePoints)
+    {
+        int res = Integer.MAX_VALUE;
+        int n = timePoints.size();
+        int c [] = new int[n];
+        for (int i=0; i<n; i++){
+            String s = timePoints.get(i);
+            c[i] = Integer.parseInt(s.substring(0, 2)) * 60 +
+                    Integer.parseInt(s.substring(3, 5));
+        }
+        Arrays.sort(c);
+        for (int i=1; i<n; i++){
+            res = Math.min(res, c[i] - c[i-1]);
+        }
+        res = Math.min(res, c[0] + (24*60 - c[n-1]));
+        return res;
     }
     public static String shiftingLetters(String s, int[] shifts)
     {
