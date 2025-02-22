@@ -4,9 +4,44 @@ import java.util.*;
 public class Question01 {
 
     public static void main(String[] args) {
-        List<String> timePoints = Arrays.asList("12:30", "12:45", "12:50");
-        System.out.println(findMinDifference(timePoints));
+     //   System.out.println(lastSubstring("abab"));
+        System.out.println(orderlyQueue("baaca", 3));
 
+    }
+    public static String orderlyQueue(String s, int k)
+    {
+        if (k > 1) {
+            char chars[] = s.toCharArray();
+            Arrays.sort(chars);
+            return new String(chars);
+        }
+        String ss = s;
+        for (int i=1; i<s.length(); i++){
+            String rot = s.substring(i) + s.substring(0, i);
+            if (ss.compareTo(rot) >0)
+                ss = rot;
+        }
+        return ss;
+    }
+
+    public static String lastSubstring(String s)
+    {
+        int i=0, k=0, j=1;
+        int n = s.length();
+        char ch [] = s.toCharArray();
+        while (j + k < n) {
+            if (ch[i+k] == ch[j+k]){
+                k++;
+            } else if (ch[i+k] > ch[j+k]) {
+                j = j+k+1;
+                k=0;
+            } else {
+                i = Math.max(i+k+1, j);
+                j = i+1;
+                k=0;
+            }
+        }
+        return s.substring(i);
     }
     public static int findMinDifference(List<String> timePoints)
     {
