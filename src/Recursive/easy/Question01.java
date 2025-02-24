@@ -5,7 +5,62 @@ import java.util.Arrays;
 public class Question01 {
 
     public static void main(String[] args) {
-        System.out.println(isPrime(30, 2));
+       powerSet("cab");
+    }
+    static void permuteRec(String str, int n,
+                           int index, String curr)
+    {
+        if (index == n) {
+            return;
+        }
+        System.out.print(curr + " ");
+        for (int i=index +1; i<n; i++){
+            curr += str.charAt(i);
+            permuteRec(str, n, i, curr);
+            // backtracking
+            curr = curr.substring(0, curr.length() -1);
+        }
+        return;
+    }
+    static void powerSet(String str)
+    {
+        char arr[] = str.toCharArray();
+        Arrays.sort(arr);
+        permuteRec(new String(arr), str.length(), -1, "");
+    }
+    public static String deleteConsecutiveStrings(String s)
+    {
+        String newElement = "";
+        int i=0, j=0;
+        while (s.length() > j) {
+            if (s.charAt(i) == s.charAt(j)){
+                j++;
+            } else if (s.charAt(j) != s.charAt(i) || j== s.length() -1) {
+                newElement += s.charAt(i);
+                i =j;
+                j++;
+            }
+        }
+        newElement += s.charAt(j-1);
+        return newElement;
+    }
+    public static int numberOfSteps(int num) {
+        return  helper(num, 0);
+    }
+    public static int helper(int num, int step)
+    {
+        if (num == 0) return step;
+        if (num % 2 == 0) {
+            return helper(num /2 , step+1);
+        }
+        return helper(num-1, step+1);
+    }
+    public static boolean isPowerOfThree(int n) {
+        if (n ==0) return false;
+        if (n == 1) return true;
+        if (n > 1) return n %3 ==0 && isPowerOfThree(n /3);
+        else
+            return false;
     }
     static boolean isPrime(int n, int i)
     {
