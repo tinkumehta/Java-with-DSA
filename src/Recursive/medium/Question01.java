@@ -3,11 +3,26 @@ package Recursive.medium;
 public class Question01 {
 
     public static void main(String[] args) {
-       char[][] board = {{'A', 'B', 'C', 'E'},{'S' ,'F', 'C', 'S'},{'A', 'D', 'E', 'E'}};
-        String word = "ABCCED";
-        System.out.println(exist(board, word));
+      int num[] = {1, 1, 1, 1, 1};
+        System.out.println(findTargetSumWays(num, 3));
     }
-
+    public static int findTargetSumWays(int[] nums, int target)
+    {
+        return helper(nums, 0, 0, target);
+    }
+    static int helper(int nums[], int index, int currSum, int target)
+    {
+        if (index == nums.length) {
+            if (currSum == target) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+        int left = helper(nums, index +1, currSum + nums[index], target);
+        int right = helper(nums, index +1, currSum - nums[index], target);
+        return left + right;
+    }
     public static boolean exist(char[][] board, String word) {
         for (int i=0; i< board.length; i++){
             for(int j=0; j<board[0].length; j++){
