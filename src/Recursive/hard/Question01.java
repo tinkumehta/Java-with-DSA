@@ -3,16 +3,39 @@ import  java.util.*;
 
 public class Question01 {
     public static void main(String[] args) {
-       Stack<Integer> st = new Stack<>();
-        st.push(30);
-        st.push(-5);
-        st.push(18);
-        st.push(14);
-        st.push(-3);
-       sortStack(st);
-        while (!st.isEmpty()) {
-            System.out.print(st.pop() + " ");
+        int grid [][] = {{0,6,0},{5,8,7},{0,9,0}};
+        System.out.println(getMaximumGold(grid));
+    }
+    private static int maxGold;
+    public static int getMaximumGold(int[][] grid)
+    {
+        maxGold =0;
+        int row = grid.length;
+        int col = grid[0].length;
+        for (int i=0; i<row; i++){
+            for (int j=0; j<col; j++){
+                if (grid[i][j] > 0){
+                    dfs(grid, i, j, 0);
+                }
+            }
         }
+        return maxGold;
+    }
+    static void dfs(int [][] grid, int row, int col, int currentGold)
+    {
+        if (row < 0 || col < 0 || row >= grid.length || col >= grid[0].length || grid[row][col] == 0) {
+            return;
+        }
+        currentGold += grid[row][col];
+        maxGold = Math.max(maxGold, currentGold);
+        int temp  = grid[row][col];
+        grid[row][col] = 0;
+        // check up, down , left, right
+        dfs(grid, row -1, col, currentGold);
+        dfs(grid, row +1, col, currentGold);
+        dfs(grid, row , col-1, currentGold);
+        dfs(grid, row , col+1, currentGold);
+        grid[row][col] = temp;
     }
     static void sortStack(Stack<Integer> st)
     {
