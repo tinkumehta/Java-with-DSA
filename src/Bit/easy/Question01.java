@@ -2,7 +2,7 @@ package Bit.easy;
 
 public class Question01 {
     public static void main(String[] args) {
-        System.out.println(addBinary("1010", "1011"));
+
     }
     public static String addBinary(String a, String b) {
         StringBuilder res = new StringBuilder();
