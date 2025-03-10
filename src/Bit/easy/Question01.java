@@ -1,8 +1,26 @@
 package Bit.easy;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Question01 {
     public static void main(String[] args) {
-
+        System.out.println(longestNiceSubstring("Bb"));
+    }
+    public static String longestNiceSubstring(String s) {
+        Set<Character> set = new HashSet<>();
+        for (char c : s.toCharArray()){
+            set.add(c);
+        }
+        for (int i=0; i<s.length(); i++){
+            if (set.contains(Character.isUpperCase(s.charAt(i))) &&
+                  set.contains(Character.isLowerCase(s.charAt(i))))
+                continue;
+                String s1 = longestNiceSubstring(s.substring(0, i));
+                String s2 = longestNiceSubstring(s.substring(i+1));
+                return s1.length() >= s2.length() ? s1 : s2;
+        }
+        return s;
     }
     public static String addBinary(String a, String b) {
         StringBuilder res = new StringBuilder();
