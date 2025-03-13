@@ -6,10 +6,23 @@ import java.util.Arrays;
 public class Question01 {
 
     public static void main(String[] args) {
-      //  System.out.println(climbStairs(3));
-      //  System.out.println(selfDividingNumbers(47, 85));
-        System.out.println(addBinary("11", "1"));
+        System.out.println(intToRoman(86));
+
     }
+
+    public static String intToRoman(int num) {
+        StringBuilder roman = new StringBuilder();
+        for (int i=0; i< values.length; i++){
+            while (num >= values[i]){
+                num -= values[i];
+                roman.append(symbols[i]);
+            }
+        }
+        return roman.toString();
+    }
+    private static final int values[]  = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9,5, 4, 1};
+    private static final String symbols []=
+            {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
 
     public static String addBinary(String a, String b) {
         StringBuilder res = new StringBuilder();
