@@ -29,12 +29,40 @@ public class LL {
         ll.insertLast(9);
         ll.insertRec(10, 4);
         ll.display();
-        ll.deleteFirst();
+        ll.reverse();
         ll.get(4);
-      //  ll.deleteLast();
-        ll.delete(3);
+
         ll.display();
 
+    }
+    public void reverse()
+    {
+        if (size < 2) {
+            return;
+        }
+        Node prev = null;
+        Node present = head;
+        Node next = present.next;
+        while (present != null) {
+            present.next = prev;
+            prev = present;
+            present = next;
+            if (next != null) {
+                next = next.next;
+            }
+        }
+        head = prev;
+    }
+    public void reverse(Node node )
+    {
+        if (node == tail) {
+            head = tail;
+            return;
+        }
+        reverse(node.next);
+        tail.next = node;
+        tail = node;
+        tail = null;
     }
     public static LL merge(LL first, LL second)
     {
