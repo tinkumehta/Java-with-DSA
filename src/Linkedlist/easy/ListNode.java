@@ -16,7 +16,19 @@ public class ListNode {
     public static void main(String[] args) {
 
     }
-
+    public ListNode removeElements(ListNode head, int val)
+    {
+        ListNode temp = new ListNode(0), curr = temp;
+        temp.next = head;
+        while (curr.next != null) {
+            if (curr.next.val == val) {
+                curr.next = curr.next.next;
+            } else {
+                curr = curr.next;
+            }
+        }
+        return temp.next;
+    }
     public ListNode sortList(ListNode head)
     {
         if (head != null && head.next != null){
