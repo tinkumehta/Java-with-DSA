@@ -16,6 +16,50 @@ public class ListNode {
     public static void main(String[] args) {
 
     }
+    public ListNode swapNodes(ListNode head, int k)
+    {
+        ListNode node = new ListNode(0);
+        node.next = head;
+        ListNode fast = head;
+        ListNode slow = head;
+        for (int i=0; i<k; i++){
+            fast = fast.next;
+        }
+        ListNode node1 = fast;
+        while (fast.next != null) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        ListNode node2 = slow.next;
+        // swap
+        int temp = node1.val;
+        node1.val = node2.val;
+        node2.val = temp;
+        return node.next;
+    }
+    public ListNode removeNthFromEnd(ListNode head, int n)
+    {
+        int lenght = findLength(head);
+        int i=0 , st = lenght- n -1;
+        ListNode curr = head;
+        if (st == -1) return head;
+        while (i < st) {
+            curr = curr.next;
+            i++;
+        }
+        curr.next = curr.next.next;
+        return head;
+    }
+    public int findLength(ListNode head)
+    {
+        int count =0;
+        ListNode curr = head;
+        while (curr != null) {
+            count++;
+            curr= curr.next;
+        }
+        return count;
+    }
     public ListNode removeElements(ListNode head, int val)
     {
         ListNode temp = new ListNode(0), curr = temp;
