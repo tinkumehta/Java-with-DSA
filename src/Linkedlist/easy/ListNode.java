@@ -1,8 +1,12 @@
 package Linkedlist.easy;
 
+import java.util.HashMap;
+
 public class ListNode {
     int val;
     ListNode next;
+    ListNode child;
+    ListNode prev;
     ListNode() {}
     ListNode (int val){
         this.val = val;
@@ -15,6 +19,82 @@ public class ListNode {
 
     public static void main(String[] args) {
 
+    }
+    public ListNode rotateRight(ListNode head, int k)
+    {
+        if (head == null || head.next == null || k <= 0) {
+            return head;
+        }
+        ListNode last = head;
+        int length =0;
+        while (last.next != null) {
+            last = last.next;
+            length++;
+        }
+        last.next = head;
+        int rotations = k % length;
+        int skip = rotations -length;
+        ListNode lastNext = head;
+        for (int i=0; i<skip -1; i++){
+            lastNext = lastNext.next;
+        }
+        head = lastNext.next;
+        lastNext.next =null;
+        return head;
+    }
+    public ListNode flatten(ListNode head)
+    {
+        ListNode temp = head;
+        while (temp != null) {
+            ListNode t = temp.next;
+            if (temp.child != null) {
+                ListNode c = flatten(temp.child);
+                temp.next =c;
+                c.prev =temp;
+                while (c.next != null) {
+                    c =c.next;
+                }
+                c.next = t;
+                if (t != null) t.prev = c;
+            }
+            temp.child = null;
+            temp =t;
+        }
+        return head;
+    }
+    public ListNode detectCycle(ListNode head)
+    {
+        HashMap<ListNode, Boolean> mt = new HashMap<>();
+        while (head != null) {
+            if (mt.containsKey(head)){
+                return head;
+            }
+            mt.put(head, true);
+            head = head.next;
+        }
+        return head;
+    }
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2)
+    {
+        ListNode dummy = new ListNode();
+        ListNode res = dummy;
+        int total =0, carry =0;
+        while (l1 != null || l2 != null || carry != 0) {
+            total = carry;
+            if (l1 != null) {
+                total += l1.val;
+                l1 = l1.next;
+            }
+            if (l2 != null) {
+                total += l2.val;
+                l2 = l2.next;
+            }
+            int num = total % 10;
+            carry = total / 10;
+            dummy.next = new ListNode(num);
+            dummy =dummy.next;
+        }
+        return res.next;
     }
     public ListNode swapNodes(ListNode head, int k)
     {
