@@ -1,6 +1,7 @@
 package Linkedlist.easy;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 public class ListNode {
     int val;
@@ -19,6 +20,28 @@ public class ListNode {
 
     public static void main(String[] args) {
 
+    }
+    static ListNode findFirstNode(ListNode head)
+    {
+        HashSet<ListNode> st = new HashSet<>();
+        ListNode curr = head;
+        while (curr != null) {
+            if (st.contains(curr)){
+                return curr;
+            }
+            st.add(curr);
+            curr = curr.next;
+        }
+        return  null;
+    }
+    public ListNode swapPairs(ListNode head)
+    {
+        if (head == null || head.next == null) return head;
+        ListNode second = head.next;
+        ListNode third = second.next;
+        second.next = head;
+        head.next = swapPairs(third);
+        return second;
     }
     public ListNode rotateRight(ListNode head, int k)
     {
