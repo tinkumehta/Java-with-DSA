@@ -21,6 +21,63 @@ public class ListNode {
     public static void main(String[] args) {
 
     }
+    public ListNode mergeKLists(ListNode[] lists)
+    {
+        if (lists == null || lists.length == 0)return null;
+        return mergeKListsHelper(lists, 0, lists.length-1);
+    }
+    private ListNode mergeKListsHelper(ListNode lists[], int start, int end)
+    {
+        if (start == end) {
+            return lists[start];
+        }
+        if (start + 1 == end) {
+            return merge(lists[start], lists[end]);
+        }
+        int mid = start + (end -start) /2;
+        ListNode left = mergeKListsHelper(lists, start, mid);
+        ListNode right = mergeKListsHelper(lists, mid+1, end);
+        return merge(left, right);
+    }
+    public ListNode insertionSortList(ListNode head)
+    {
+        ListNode helper = new ListNode(0);
+        ListNode pre = helper;
+        ListNode curr = head;
+        ListNode next = null;
+        while (curr != null) {
+            next = curr.next;
+            while (pre.next != null && pre.next.val < curr.val) {
+                pre = pre.next;
+            }
+            // swap
+            curr.next = pre.next;
+            pre.next = curr;
+            pre = helper;
+            curr = next;
+        }
+        return helper.next;
+    }
+    public ListNode removeZeroSumSublists(ListNode head)
+    {
+        HashMap<Integer, ListNode> map = new HashMap<>();
+        int perfix =0;
+        ListNode dumyhead = new ListNode(0, head);
+        ListNode temp = dumyhead;
+        while (temp != null) {
+            perfix += temp.val;
+            map.put(perfix, temp);
+            temp = temp.next;
+        }
+        perfix =0;
+        temp = dumyhead;
+        while (temp != null) {
+            perfix += temp.val;
+            temp.next = map.get(perfix).next;
+            temp = temp.next;
+        }
+        return dumyhead.next;
+    }
     static ListNode findFirstNode(ListNode head)
     {
         HashSet<ListNode> st = new HashSet<>();
