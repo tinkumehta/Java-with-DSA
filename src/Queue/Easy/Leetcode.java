@@ -6,9 +6,45 @@ import java.util.Stack;
 public class Leetcode {
 
     public static void main(String[] args) {
-        System.out.println(isValid("[{()}]"));
+        // System.out.println(isValid("[{()}]"));
+      //  System.out.println(removeOuterParentheses("(()())(())(()(()))"));
+        System.out.println(removeDuplicates("aabca"));
     }
-
+    public static String removeDuplicates(String s)
+    {
+        char ch[] = new char[s.length()];
+        int lastIndex = -1;
+        for (char c : s.toCharArray()){
+            if (lastIndex ==-1 || ch[lastIndex] != c){
+                ch[lastIndex+1] = c;
+                lastIndex++;
+            } else {
+                lastIndex--;
+            }
+        }
+        return new String(ch, 0, lastIndex+1);
+    }
+    public static String removeOuterParentheses(String s)
+    {
+        StringBuilder ans = new StringBuilder();
+        char ch [] = s.toCharArray();
+        int n = ch.length;
+        int count =0;
+        for (int i=1; i<n; i++){
+            if (ch[i] == '('){
+                count++;
+                ans.append('(');
+            } else {
+                if (count == 0) {
+                    i++;
+                } else {
+                    ans.append(')');
+                    count--;
+                }
+            }
+        }
+        return ans.toString();
+    }
     public static boolean isValid(String s)
     {
         Stack<Character> stack = new Stack<>();
