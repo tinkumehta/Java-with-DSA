@@ -1,11 +1,31 @@
 package Stack.Medium;
-
+import java.util.*;
 public class medium {
 
     public static void main(String[] args) {
-        System.out.println(longestValidParentheses("(()))()(("));
-    }
+        String[] arr = {"gfg", "for", "geeks",
+                "geeks", "for"};
 
+        System.out.println(removeConsecutiveSame(arr));
+    }
+    static int removeConsecutiveSame(String[] arr)
+    {
+        List<String> list = new ArrayList<>(Arrays.asList(arr));
+        int i=0;
+        while (i < list.size() - 1) {
+            if (list.get(i).equals(list.get(i +1))){
+                list.remove(i);
+                list.remove(i);
+                if (i > 0) {
+                    i--;
+                }
+            } else {
+                i++;
+            }
+
+        }
+        return list.size();
+    }
     public static int longestValidParentheses(String s)
     {
         int leftCount  =0;
