@@ -3,10 +3,58 @@ import java.util.*;
 public class medium {
 
     public static void main(String[] args) {
-        String[] arr = {"gfg", "for", "geeks",
-                "geeks", "for"};
+        int[] arr = { 2, 1, 8 };
+        System.out.println(findMaxDiff(arr));
+    }
+    public static int findMaxDiff(int[] arr)
+    {
+        int n = arr.length;
+        int res =0;
+        for (int i = 0; i < n; ++i) {
+            int leftSmaller = 0, rightSmaller = 0;
 
-        System.out.println(removeConsecutiveSame(arr));
+            for (int j = i - 1; j >= 0; --j) {
+                if (arr[j] < arr[i]) {
+                    leftSmaller = arr[j];
+                    break;
+                }
+            }
+            for (int j = i + 1; j < n; ++j) {
+                if (arr[j] < arr[i]) {
+                    rightSmaller = arr[j];
+                    break;
+                }
+            }
+
+            int diff = Math.abs(leftSmaller - rightSmaller);
+
+            res = Math.max(res, diff);
+        }
+
+        return res;
+    }
+    static void test(String expression, int index)
+    {
+        int i;
+        if (expression.charAt(index) != '['){
+            System.out.print(expression + ", " + index + ": -1\n");
+            return;
+        }
+        Stack<Integer> st = new Stack<>();
+        for ( i=index; i<expression.length(); i++){
+            if (expression.charAt(i) == '['){
+                st.push((int) expression.charAt(i));
+            } else if (expression.charAt(i) == ']'){
+                st.pop();
+                if (st.isEmpty()) {
+                    System.out.print(expression + ", "
+                            + index + ": " + i + "\n");
+                    return;
+                }
+            }
+        }
+        System.out.print(expression + ", " + index + ": -1\n");
+
     }
     static int removeConsecutiveSame(String[] arr)
     {
