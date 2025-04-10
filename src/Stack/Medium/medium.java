@@ -3,8 +3,23 @@ import java.util.*;
 public class medium {
 
     public static void main(String[] args) {
-        int[] arr = { 2, 1, 8 };
-        System.out.println(findMaxDiff(arr));
+        int[] a = {1, 2, 3};
+        int[] b = {2, 1, 3};
+        System.out.println(checkPerm(a, b) ? "True" : "false");
+    }
+    static boolean checkPerm(int[] a, int[] b)
+    {
+        Stack<Integer> st = new Stack<>();
+        int j =0;
+        for (int i=0; i<a.length; i++){
+            st.push(a[i]);
+            while (!st.isEmpty() && st.peek().equals(b[j])){
+                st.pop();
+                j++;
+            }
+
+        }
+        return (j == b.length);
     }
     public static int findMaxDiff(int[] arr)
     {
