@@ -1,15 +1,48 @@
 package Stack.Hard;
 
+import java.util.HashSet;
 import java.util.Stack;
 
 public class question02 {
 
     public static void main(String[] args) {
-        int N = 7;
-        int[] heights = new int[] { 6, 2, 5, 4, 5, 1, 6 };
+        int[] arr = {60, 20, 50, 40, 10, 50, 60};
+        System.out.println(getMaxArea(arr));
+    }
+    static int getMaxArea(int[] arr)
+    {
+        int res =0, n = arr.length;
+        for (int i=0; i<n; i++){
+            int curr = arr[i];
+            for (int j= i-1; j >=0 && arr[j] >= arr[i] ; j--)
+                curr += arr[i];
+            for (int j= i+1; j< n && arr[j] >= arr[i] ; j++)
+                curr += arr[i];
+            res = Math.max(res, curr);
 
-        // Function call
-        System.out.println(max_pepole(heights, N));
+        }
+        return res;
+    }
+    static int DistinctR(int[] arr, int n)
+    {
+        HashSet<Integer> dist = new HashSet<>();
+        int firstMax, secondMax;
+        for (int i=0; i<n -1; i++){
+            firstMax = arr[i];
+            secondMax = Integer.MIN_VALUE;
+            for (int j = i+1; j<n; j++){
+                if(firstMax < arr[j])
+                {
+                    secondMax = firstMax;
+                    firstMax = arr[j];
+                }
+                else if(secondMax < arr[j])
+                    secondMax = arr[j];
+
+                dist.add(firstMax - secondMax);
+            }
+        }
+        return dist.size();
     }
     static int leftindex(int[] heights, int idx, int n)
     {
@@ -72,7 +105,7 @@ public class question02 {
                 return i;
         return -1;
     }
-    static int getMaxArea(int[] arr)
+    static int getMaxArea01(int[] arr)
     {
         int res =0, n = arr.length;
         for (int i=0; i<n; i++){
