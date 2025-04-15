@@ -8,6 +8,25 @@ public class TreeNode {
     public static void main(String[] args) {
 
     }
+    public boolean isValidBST(TreeNode root)
+    {
+        if (root == null) {
+            return true;
+        }else
+            return helperisValidBst(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+    public boolean helperisValidBst(TreeNode root, int min, int max)
+    {
+        if (root == null) return true;
+        if ((root.val < min || root.val > max) ||
+            root.val == Integer.MIN_VALUE && root.left != null ||
+            root.val == Integer.MAX_VALUE && root.right != null
+        ) {
+            return false;
+        }
+        return helperisValidBst(root.left, min, root.val-1) &&
+                helperisValidBst(root.right, root.val +1, max);
+    }
     public int getMinimumDifference(TreeNode root)
     {
         int min = Integer.MAX_VALUE;
