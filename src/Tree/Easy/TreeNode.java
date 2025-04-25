@@ -186,6 +186,7 @@ public class TreeNode {
             res.add(root.val);
             inorderTravels(root.right, res);
         }
+        return res;
     }
 
     int val;
