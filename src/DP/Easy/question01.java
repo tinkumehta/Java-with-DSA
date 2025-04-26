@@ -4,8 +4,73 @@ import java.util.Arrays;
 
 public class question01 {
     public static void main(String[] args) {
-        int[] cost = { 16, 19, 10, 12, 18 };
-        System.out.println(minCostClimbing(cost));
+        int n = 5;
+       int result = bellNumber(n);
+        System.out.println(result);
+    }
+    static int bellNumber(int n)
+    {
+        int dp[][] = new int[n+1][n+1];
+        for (int row[] : dp)
+            Arrays.fill(row, -1);
+        int result =0;
+        for (int i=1; i<=n; i++){
+            result += stirling(n, i, dp);
+        }
+        return result;
+    }
+    static int stirling(int n, int k, int[][] memo)
+    {
+        if (n ==0 && k ==0) return 0;
+        if (n ==0 || k == 0) return 0;
+        if (n == k) return 1;
+        if (k == 1) return 1;
+        if (memo[n][k] != -1) return memo[n][k];
+        memo[n][k] = k * stirling(n-1, k, memo) + stirling(n -1, k-1, memo);
+        return memo[n][k];
+    }
+    static int minSquares(int n)
+    {
+        int dp[] = new int[n+1];
+        Arrays.fill(dp, -1);
+        return minSquaresRec(n, dp);
+    }
+    static int minSquaresRec(int n, int[] memo)
+    {
+        if (n <=3) return n;
+        if (memo[n] != -1) return memo[n];
+        int cnt =n;
+
+        for (int x=1; x*x <n; x++){
+            cnt = Math.min(cnt, 1 + minSquaresRec(n- x*x , memo));
+        }
+        return memo[n] = cnt;
+    }
+
+
+    static int maxCut(int n, int x, int y, int z)
+    {
+        int dp [] = new int[n+1];
+        Arrays.fill(dp, -1);
+        int res = maxCutHelper(n, x, y, z, dp);
+        if (res == -1) return 0;
+        return res;
+    }
+    static int maxCutHelper(int n, int x, int y, int z, int[] memo)
+    {
+        if (n ==0) return 0;
+        if (n < 0) return -1;
+        if (memo[n] != -1) return memo[n];
+
+        int cut1 = maxCutHelper(n-x, x, y, z, memo);
+        int cut2 = maxCutHelper(n-y, x, y, z, memo);
+        int cut3 = maxCutHelper(n-z, x, y, z, memo);
+
+        int max = Math.max(cut1, Math.max(cut2, cut3));
+        if (max == -1) {
+            return memo[n] = -1;
+        }
+        return memo[n] = max +1;
     }
     static int minCostClimbing(int cost[])
     {
