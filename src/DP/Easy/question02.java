@@ -5,10 +5,78 @@ import java.util.Arrays;
 public class question02 {
 
     public static void main(String[] args) {
-        String s1 = "GeeksforGeeks";
-        String s2 = "GeeksQuiz";
-
-        System.out.println(longestCommonSubstr(s1, s2));
+      // System.out.println(kInversion(4, 2));
+        System.out.println(optimalKeys(7));
+    }
+    static int optimalKeys(int n)
+    {
+        if (n <= 6) {
+            return n;
+        }
+        int max =0;
+        for (int b=n-3; b>=1; b--){
+            int curr = (n -b - 1)* optimalKeys(b);
+            if (curr > max)
+                max = curr;
+        }
+        return max;
+    }
+    static int kInversion(int n, int k)
+    {
+        int dp[][] = new int[n+1][k+1];
+        for (int row[] : dp)
+            Arrays.fill(row, -1);
+        return kInversionsHelper(n, k, dp);
+    }
+    static int kInversionsHelper(int n, int k, int[][] memo)
+    {
+        if (n == 0) return 0;
+        if (k == 0) return 1;
+        if (memo[n][k] != -1) return memo[n][k];
+        int result =0;
+        for (int i=0; i<=Math.min(k, n-1); i++){
+            result = (result + kInversionsHelper(n-1, k-i, memo));
+        }
+        return memo[n][k] = result;
+    }
+    static int uniquePathsWithObstacles(int grid[][])
+    {
+        int r = grid.length;
+        int c = grid[0].length;
+        int dp[][] = new int[r][c];
+        for (int row[] : dp)
+            Arrays.fill(row, -1);
+        return UniquePathHelper(0, 0, r, c, grid, dp);
+    }
+    static int UniquePathHelper(int i, int j, int r, int c,
+                                int[][] grid, int[][] memo)
+    {
+        if (i == r || j == c) {
+            return 0;
+        }
+        if (grid[i][j] == 1) {
+            return 0;
+        }
+        if (i == r - 1 && j == c - 1) {
+            return 1;
+        }
+        if (memo[i][j] != -1) {
+            return memo[i][j];
+        }
+        memo[i][j] = UniquePathHelper(i+1, j, r, c, grid, memo) +
+                    UniquePathHelper(i, j+1, r, c, grid, memo);
+        return memo[i][j];
+    }
+    static int numberOfPaths(int m, int n)
+    {
+        int dp[] = new int[n];
+        dp[0] = 1;
+        for (int i=0; i<m; i++){
+            for (int j=1; j<n; j++){
+                dp[j] += dp[j-1];
+            }
+        }
+        return dp[n-1];
     }
     static int longestCommonSubstr(String s1, String s2)
     {
