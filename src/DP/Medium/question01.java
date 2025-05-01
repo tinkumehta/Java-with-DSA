@@ -5,11 +5,31 @@ import java.util.Arrays;
 public class question01 {
 
     public static void main(String[] args) {
-        String s1 = "abcd";
-        String s2 = "bcfe";
-        System.out.println(editDistance(s1, s2));
-    }
+        int[] val = { 1, 2, 3 };
+        int[] wt = { 4, 5, 1 };
+        int W = 4;
 
+        System.out.println(knapsack(W, val, wt));
+    }
+    static int knapsack(int W, int val[], int wt[])
+    {
+        int n = val.length;
+        int dp[][]= new int[n+1][W+1];
+        for (int row [] : dp)
+            Arrays.fill(row, -1);
+        return knapsackRec(W, val, wt, n, dp);
+    }
+    static int knapsackRec(int W, int[] val, int[] wt, int n, int[][] memo)
+    {
+        if (n ==0 || W ==0) return 0;
+        if (memo[n][W] != -1) return memo[n][W];
+        int pick =0;
+        if (wt[n-1] <= W){
+            pick = val[n-1] + knapsackRec(W - wt[n-1], val, wt, n-1, memo);
+        }
+        int notPick = knapsackRec(W, val, wt, n-1, memo);
+        return memo[n][W] = Math.max(pick, notPick);
+    }
     static int editDistance(String s1, String s2)
     {
         int m = s1.length();
