@@ -5,11 +5,52 @@ import java.util.Arrays;
 public class question01 {
 
     public static void main(String[] args) {
-        int[] val = { 1, 2, 3 };
-        int[] wt = { 4, 5, 1 };
-        int W = 4;
-
-        System.out.println(knapsack(W, val, wt));
+        int[] arr = {1, 5, 16, 5, 5};
+        if (equalPartion(arr)) {
+            System.out.println("True");
+        } else {
+            System.out.println("False");
+        }
+    }
+    static boolean equalPartion(int arr[])
+    {
+        int n = arr.length;
+        int sum =0;
+        for (int num : arr){
+            sum += num;
+        }
+        if (sum % 2 != 0) return false;
+        int dp[][] = new int[n][sum+1];
+        for (int row[] : dp)
+            Arrays.fill(row, -1);
+        return isSubsetSum(n, arr, sum/2, dp);
+    }
+    static boolean isSubsetSum(int n, int[] arr, int sum, int[][] memo)
+    {
+        if (sum == 0) return true;
+        if (n ==0) return false;
+        if (memo[n-1][sum] != -1){
+            return memo[n-1][sum]== 1;
+        }
+        if (arr[n - 1] > sum) {
+            isSubsetSum(n-1, arr, sum, memo);
+        }
+        memo[n-1][sum] = (isSubsetSum(n-1, arr, sum, memo) ||
+                        isSubsetSum(n-1, arr, sum - arr[n-1], memo) ) ? 1 : 0;
+        return memo[n-1][sum] ==1;
+    }
+    static boolean wordBreakRec(int i, String s, String[] dictionary)
+    {
+        if (i == s.length()) return true;
+        String perfix = "";
+        for (int j=i; j<s.length(); j++){
+            perfix += s.charAt(j);
+            if (Arrays.asList(dictionary).contains(perfix) &&
+                        wordBreakRec(j+1, s, dictionary) ){
+                return true;
+            }
+        }
+        return false;
     }
     static int knapsack(int W, int val[], int wt[])
     {
