@@ -1,16 +1,76 @@
 package DP.Medium;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class question01 {
 
     public static void main(String[] args) {
-        int[] arr = {1, 5, 16, 5, 5};
-        if (equalPartion(arr)) {
-            System.out.println("True");
-        } else {
-            System.out.println("False");
+        System.out.println(calculate(4));
+    }
+    static int calculate(int n)
+    {
+        int dp[] = new int[n+1];
+        Arrays.fill(dp, -1);
+        return calculate(n, dp);
+    }
+    static int calculate(int n, int[] memo)
+    {
+        if (n == 1) return 0;
+        if (n == 2) return 1;
+        if (memo[n] != -1) return memo[n];
+        return memo[n] = (n-1) * (calculate(n-1, memo) + calculate(n-2, memo));
+    }
+    static List<Integer> Distance(int arr[])
+    {
+        int n = arr.length;
+        int totalSum = Arrays.stream(arr).sum();
+        int dp[][] = new int[n+1][totalSum +1];
+        for (int row[] : dp)
+            Arrays.fill(row, -1);
+        distSumRec(arr, n, 0, 0, dp);
+        List<Integer> result = new ArrayList<>();
+        for (int i=0; i<= totalSum; i++){
+            if (dp[n][i] == 1) {
+                result.add(i);
+            }
         }
+        return result;
+    }
+    static void distSumRec(int[] arr, int n, int sum, int i, int[][] memo)
+    {
+        if (i == n) {
+            memo[i][sum] = 1;
+            return;
+        }
+        if (memo[i][sum] != -1) {
+            memo[i][sum] = 1;
+            return;
+        }
+        memo[i][sum] = 1;
+        distSumRec(arr, n, sum + arr[i], i+1, memo);
+        distSumRec(arr, n, sum, i+1, memo);
+    }
+    static int longestPalinSubseq(String s)
+    {
+        int n = s.length();
+        int dp[][] = new int[n][n];
+        for (int row[] : dp)
+            Arrays.fill(row , -1);
+        return lps(s, 0, n-1, dp);
+    }
+    static int lps(String s, int low, int high, int[][] memo)
+    {
+        if (low > high) return 0;
+        if (low == high) return 1;
+        if (memo[low][high] != -1) {
+            return memo[low][high] ;
+        }
+        if (s.charAt(low) == s.charAt(high)){
+            return memo[low][high] = lps(s, low +1, high-1, memo) +2;
+        }
+       return memo[low][high] = Math.max(lps(s, low, high -1, memo), lps(s, low+1, high, memo));
     }
     static boolean equalPartion(int arr[])
     {
