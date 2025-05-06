@@ -1,8 +1,6 @@
 package Tree.Medium;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class TreeNode {
     int val;
@@ -18,6 +16,32 @@ public class TreeNode {
         this.right = right;
     }
     static int result =0;
+    public List<TreeNode> generateTrees(int n)
+    {
+        List<TreeNode> dp[][] = new List[n+1][n+1];
+        return generateTrees(1, n, dp);
+    }
+    private List<TreeNode> generateTrees(int low, int high, List<TreeNode> dp[][])
+    {
+        List<TreeNode> bst = new ArrayList<>();
+        if (low > high) {
+            bst.add(null);
+            return bst;
+        }
+        if (dp[low][high] != null) {
+            return dp[low][high];
+        }
+        for (int i = low; i<=high; i++){
+            List<TreeNode> leftSubtree = generateTrees(low, i-1, dp);
+            List<TreeNode> rightSubtree = generateTrees(i+1, high, dp);
+            for (TreeNode left : leftSubtree){
+                for (TreeNode right : rightSubtree){
+                    bst.add(new TreeNode(i, left, right));
+                }
+            }
+        }
+        return dp[low][high] = bst;
+    }
     public int longestUnivaluePath(TreeNode root)
     {
         int ans = dfs(root);
