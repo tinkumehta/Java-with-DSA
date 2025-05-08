@@ -8,7 +8,51 @@ public class leetcode {
         List<String> res = generateParenthesis(n);
         System.out.println(res);
     }
-
+    public int rob2(int nums[])
+    {
+        int n = nums.length;
+        if (n ==1) return nums[0];
+        if (n ==2) return Math.max(nums[0], nums[1]);
+        return Math.max(rob( nums, 0, n-2), rob(nums, 1, n-1));
+    }
+    public int rob(int nums[], int start, int end)
+    {
+        int prev1 = nums[start];
+        int prev2 = Math.max(nums[start], nums[start +1]);
+        for (int i=start+2; i<=end; i++){
+            int cur = Math.max(nums[i] +prev1, prev2);
+            prev1 = prev2;
+            prev2 = cur;
+        }
+        return prev2;
+    }
+    public int rob(int[] nums)
+    {
+        int l = nums.length;
+        if (l == 1) return nums[0];
+        if (l == 2) return Math.max(nums[0], nums[1]);
+        if (l ==3) return Math.max(nums[0] + nums[2], nums[1]);
+        int res [] = new int[l];
+        res[0] = nums[0];
+        res[1] = nums[1];
+        res[2] = nums[0] + nums[2];
+        for (int i=3; i<l ; i++){
+            res[i] = Math.max(res[i-2] + nums[i],res[i-3] + nums[i] );
+        }
+        return Math.max(res[l-1],res[l-2] );
+    }
+    public int maxProfit(int[] prices)
+    {
+        int buyPrice = prices[0];
+        int profit =0;
+        for (int i=0; i<prices.length; i++){
+            if (buyPrice > prices[i]){
+                buyPrice = prices[i];
+            }
+            profit = Math.max(profit, prices[i] - buyPrice);
+        }
+        return profit;
+    }
     public int numTree(int n)
     {
         int dp[] = new int[n+1];
