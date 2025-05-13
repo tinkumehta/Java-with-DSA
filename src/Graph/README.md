@@ -15,4 +15,8 @@ A graph is a mathematical structure used to model pairwise relations between obj
 - A tree is a type of graph that is connected and acyclic.
 - An Eulerian graph is a graph in which there exists a trail, called an Eulerian trail, that visits every edge exactly once.
 - A Hamiltonian graph is a graph that contains a Hamiltonian circuit, which is a cycle that visits each vertex exactly once and returns to the starting vertex.
-- 
+
+ ## Topological sorting 
+ Topological sorting for Directed Acyclic Graph (DAG) is a linear ordering of vertices such that for every directed edge u-v, vertex u comes before v in the ordering.
+
+Note: Topological Sorting for a graph is not possible if the graph is not a DAG.
