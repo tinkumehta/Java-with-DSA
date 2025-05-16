@@ -12,6 +12,7 @@ public class Dijkstras {
         int src =0;
        bellmanFord(graph, src);
     }
+
     public static void bellmanFord(ArrayList<Edge> graph[], int src)
     {
         int dist[] = new int[graph.length];
