@@ -2,6 +2,7 @@ package Graph.Medium.GFG;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Graph {
     int V;
@@ -81,9 +82,87 @@ public class Graph {
         return hasEulerianCycle(g) ? 1 : 0;
     }
 
+    static final int N =6;
+    static final int M =6;
+
+    static boolean bpm(boolean bpGraph[][], int u, boolean [] isSeen, int mathcR[])
+    {
+        for (int v=0; v<N; v++){
+            if (bpGraph[u][v] && !isSeen[v]){
+                isSeen[v] = true;
+                if (mathcR[v] < 0 || bpm(bpGraph, mathcR[v], isSeen, mathcR)){
+                    mathcR[v] = u;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    static int maxBpm(boolean bpGraph[][])
+    {
+        int matchR[] = new int[N];
+        for (int u=0; u<N; u++){
+            matchR[u] = -1;
+        }
+        int result =0;
+        for (int u=0; u<M; u++){
+            boolean seen[] = new boolean[N];
+            for (int i=0; i<N; i++)
+                seen[i] = false;
+            if (bpm(bpGraph, u, seen, matchR))
+                result++;
+        }
+        return result;
+    }
+    private static boolean isCycleUtil(List<Integer> adj[], int u, boolean vis[], boolean recStack[])
+    {
+        if (recStack[u])
+            return true;
+        if (vis[u])
+            return false;
+        vis[u] = true;
+        recStack[u] = true;
+        for (int v : adj[u]){
+            if (isCycleUtil(adj, v, vis, recStack))
+                return true;
+        }
+        // backtracking
+        recStack[u] = false;
+        return false;
+    }
+    private static List<Integer>[] constructe(int V, int edges[][])
+    {
+        List<Integer> adj[] = new List[V];
+        for (int i=0; i<V; i++){
+            adj[i] = new ArrayList<>();
+        }
+        for (int edge[] : edges){
+            adj[edge[0]].add(edge[1] );
+        }
+        return adj;
+    }
+    private static boolean isCycle(int V, int edges[][])
+    {
+        List<Integer> adj[] = constructe(V, edges);
+        boolean vis[] = new boolean[V];
+        boolean rec[] = new boolean[V];
+        for (int i=0; i<V; i++){
+            if (!vis[i] && isCycleUtil(adj, i, vis, rec))
+                return true;
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
-        String[] arr3 = {"ab", "bc", "cd", "da"};
-        System.out.println(isCricle(arr3) == 1 ? "Yes" : "No");
+        int[][] edges = {
+                { 0, 1 },
+                { 0, 2 },
+                { 1, 2 },
+                { 2, 0 },
+                { 2, 3 }
+        };
+        int V = 4;
+        System.out.println(isCycle(V, edges) ? "true" : "false");
     }
 }
 
