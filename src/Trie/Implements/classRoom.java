@@ -2,10 +2,11 @@ package Trie.Implements;
 
 public class classRoom {
     static class Node {
+        static final int ALPHA_BATE = 26;
         Node children[];
         boolean eow;
         Node () {
-            children = new Node[26];
+            children = new Node[ALPHA_BATE];
             for (int i=0; i<26; i++){
                 children[i] = null;
             }
@@ -16,15 +17,18 @@ public class classRoom {
     public static String ans ="";
 
     public static void main(String[] args) {
-        String words [] = {"a", "banana", "app", "appl", "ap", "apply", "apple"};
-        String key = "moon";
+        String words[] = { "the", "a", "there",
+                "answer", "any", "by",
+                "bye", "their", "hero", "heroplane" };
+    //    int n = keys.length;
         for (int i=0; i<words.length; i++){
             insert(words[i]);
         }
       //  System.out.println(wordBreak(key));
         //System.out.println(startWith(key));
-        longestWord(root, new StringBuilder(""));
-        System.out.println(ans);
+       // longestWord(root, new StringBuilder(""));
+      //  System.out.println(ans);
+        System.out.println(remove(root, "hero",0 ));
     }
     public static void longestWord(Node root, StringBuilder temp)
     {
@@ -105,6 +109,34 @@ public class classRoom {
             curr = curr.children[index];
         }
         return true;
+    }
+    static boolean isEmpty(Node root)
+    {
+        for (int i=0; i<26; i++){
+            if (root.children != null)
+                return false;
+        }
+        return true;
+    }
+    static Node remove(Node root , String key, int depth)
+    {
+        Node curr = root;
+        if (curr == null) {
+            return null;
+        }
+        if (depth == key.length()) {
+            if (curr.eow)
+                curr.eow = false;
+            if (isEmpty(curr)){
+                curr = null;
+            }
+            return curr;
+        }
+        int idx = key.charAt(depth) - 'a';
+        curr.children[idx] = remove(curr.children[idx], key, depth+1);
+        if (isEmpty(root) && curr.eow == false)
+            curr = null;
+        return curr;
     }
 }
 
