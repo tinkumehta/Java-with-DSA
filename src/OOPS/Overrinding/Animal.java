@@ -20,6 +20,5 @@ public class Animal {
          dog.move();
          dog.eating();
 
-
      }
  }
