@@ -6,7 +6,27 @@ import java.util.Arrays;
 public class Question2 {
 
     public static void main(String[] args) {
-
+        int[] arr = {900, 940, 950, 1100, 1500, 1800};
+        int[] dep = {910, 1200, 1120, 1130, 1900, 2000};
+        System.out.println(minPlatform(arr, dep));
+    }
+    static int minPlatform(int arr[], int dep[])
+    {
+        int n = arr.length;
+        int res =0;
+        Arrays.sort(arr);
+        Arrays.sort(dep);
+        int j =0;
+        int cnt =0;
+        for (int i=0; i<n; i++){
+            while (j <n && dep[j] < arr[i]){
+                cnt--;
+                j++;
+            }
+            cnt++;
+        res = Math.max(cnt, res);
+        }
+        return res;
     }
 
     public static int maximizeSweetness(int[] nums, int m)
