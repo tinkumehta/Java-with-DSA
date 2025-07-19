@@ -6,9 +6,60 @@ import java.util.Arrays;
 public class Question2 {
 
     public static void main(String[] args) {
-        int[] arr = {900, 940, 950, 1100, 1500, 1800};
-        int[] dep = {910, 1200, 1120, 1130, 1900, 2000};
-        System.out.println(minPlatform(arr, dep));
+        int[] arr = { 0, -8, -6, 3 };
+        System.out.println(minAbsSumPair(arr));
+    }
+    static int minAbsSumPair(int[] arr)
+    {
+        int res = arr[0] + arr[1];
+        for (int i=0; i<arr.length-1; i++){
+            for (int j=i+1; j<arr.length; j++){
+                int sum = arr[i] + arr[j];
+                if (Math.abs(sum) < Math.abs(res)){
+                    res = sum;
+                } else if (Math.abs(sum) == Math.abs(res)) {
+                    res = Math.max(res, sum);
+                }
+            }
+        }
+        return res;
+    }
+    static int [] candiatesDisturebute(int n, int k)
+    {
+        int arr[] = new int[k];
+        int j=0;
+        while (n > 0) {
+            for (int i=0; i<k; i++){
+                j++;
+                if (n <= 0) {
+                    break;
+                } else {
+                    if (j <n){
+                        arr[i] = arr[i] + j;
+                    } else {
+                        arr[i] = arr[i] + n;
+                    }
+                    n = n-j;
+                }
+            }
+        }
+        return arr;
+    }
+    static int singleUniqueNumber(int arr[])
+    {
+        int n = arr.length;
+        for (int i=0; i<n; i++){
+            int count =0;
+            for (int j=0; j<n; j++){
+                if (arr[i] == arr[j]){
+                    count++;
+                }
+            }
+            if (count == 1) {
+                return arr[i];
+            }
+        }
+        return -1;
     }
     static int minPlatform(int arr[], int dep[])
     {
