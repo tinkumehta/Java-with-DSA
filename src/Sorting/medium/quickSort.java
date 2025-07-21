@@ -9,6 +9,7 @@ public class quickSort {
         int m = 3;
         System.out.println(findMinDiff(arr, m));
     }
+
     static int findMinDiff(int[] arr, int m)
     {
         int n = arr.length;
