@@ -4,13 +4,9 @@ import java.util.*;
 public class question02 {
 
     public static void main(String[] args) {
-        String[] arr = {"act", "god", "cat", "dog", "tac"};
-        ArrayList<ArrayList<String>> res = angram(arr);
-        for (List<String> group: res){
-            for (String result : group)
-                System.out.print(result + " ");
-            System.out.println();
-        }
+        int[] arr = {1, 0, 0, 1, 0, 1, 1};
+
+        System.out.println(maxLen(arr));
     }
     static final int MAX_CHAR = 26;
     static String getHash(String s)
@@ -37,6 +33,21 @@ public class question02 {
                 res.add(new ArrayList<>());
             }
             res.get(map.get(key)).add(arr[i]);
+        }
+        return res;
+    }
+    static int maxLen(int arr[])
+    {
+        HashMap<Integer, Integer> mp = new HashMap<>();
+        int prevSum =0, res =0;
+        for (int i=0; i<arr.length; i++){
+            prevSum += (arr[i] == 0) ? -1 : 1;
+            if (prevSum == 0)
+                res = i+1;
+            if (mp.containsKey(prevSum))
+                res = Math.max(res, i - mp.get(prevSum));
+            else
+                mp.put(prevSum, i);
         }
         return res;
     }
