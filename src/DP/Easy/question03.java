@@ -4,13 +4,85 @@ import java.util.Arrays;
 
 public class question03 {
     public static void main(String[] args) {
-        int[] arr = { 1, 5, 3, 7, 4 };
-        int sum = 12;
-        if (isSubsetSum(arr, sum)){
-            System.out.println("True");
-        } else {
-            System.out.println("false");
+        String s = "121";
+        System.out.println(decode(s));
+    }
+    static int decode(String digits)
+    {
+        int n = digits.length();
+        int dp[] = new int[n];
+        Arrays.fill(dp, -1);
+        return decodeHelper(digits, 0, dp);
+    }
+    static int decodeHelper(String digits, int index, int[] memo)
+    {
+        int n = digits.length();
+        if (index >=n) return 1;
+        if (memo[index] != -1) return memo[index];
+        int ways =0;
+        if (digits.charAt(index) != '0'){
+            ways = decodeHelper(digits, index+1, memo);
         }
+        // two digits
+        if ((index +1 <n)
+                && ((digits.charAt(index) == '1'
+                && digits.charAt(index+1) <='9') ||
+                (digits.charAt(index) == '2' && digits.charAt(index+1) <='6'))){
+            ways += decodeHelper(digits, index+2, memo);
+        }
+        memo[index] = ways;
+        return ways;
+    }
+    static int minJumps(int arr[])
+    {
+        int dp[] = new int[arr.length];
+
+           Arrays.fill(dp, -1);
+            int ans = minJumpsRecur(0, arr, dp);
+            if (ans == Integer.MAX_VALUE)
+                return -1;
+            return ans;
+    }
+    static int minJumpsRecur(int i, int[] arr, int[] memo)
+    {
+        if (i == arr.length-1) return 0;
+        if (memo[i] != -1) return memo[i];
+        int ans = Integer.MAX_VALUE;
+        for (int j=i+1; j<=i+arr[i] && j< arr.length; j++){
+            int val = minJumpsRecur(j, arr, memo);
+            if (val != Integer.MAX_VALUE)
+            ans = Math.min(ans, 1+val);
+
+        }
+        return memo[i] = ans;
+    }
+    static boolean isILPrint(String s1, String s2, String s3)
+    {
+        int m = s1.length(), n= s2.length();
+        if (m +n != s3.length()) return false;
+        int dp[][] = new int[m+1][n +1];
+        for (int row[] : dp)
+            Arrays.fill(row, -1);
+        return isILRec(s1, s2, s3, 0, 0, dp);
+    }
+    static boolean isILRec(String s1, String s2, String s3,
+                           int i, int j, int[][] memo)
+    {
+        int k = i+j;
+        int m = s1.length();
+        int n = s2.length();
+        if (i == m && j== n && k == s3.length()) return true;
+        if (memo[i][j] != -1) return memo[i][j] == 1;
+        boolean a = false;
+        if (i <m && s1.charAt(i) == s3.charAt(k)){
+            a = isILRec(s1, s2, s3, i+1, j, memo);
+        }
+        boolean b = false;
+        if (j <n && s2.charAt(j) == s3.charAt(k)){
+            b = isILRec(s1, s2, s3, i, j+1, memo);
+        }
+        memo[i][j] = a ||b ? 1 : 0;
+        return a || b;
     }
     static boolean isSubsetSum (int arr[], int sum)
     {
