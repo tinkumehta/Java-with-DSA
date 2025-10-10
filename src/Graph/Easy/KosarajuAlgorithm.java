@@ -79,6 +79,7 @@ public class KosarajuAlgorithm {
     {
         vis[curr] = true;
         System.out.print(curr + " ");
+
         for (int i=0; i<graph[curr].size(); i++){
             Edge e = graph[curr].get(i);
             if (!vis[e.dest]){
