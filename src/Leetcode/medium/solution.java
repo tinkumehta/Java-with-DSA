@@ -1,12 +1,37 @@
 package Leetcode.medium;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class solution {
     public static void main(String[] args) {
       int nums[] = {0,1,0,1,0,1,99};
       //  System.out.println(findPeakElement(nums));
         System.out.println(singleNumber(nums));
+    }
+    // leetcode 118
+    public List<List<Integer>> generate(int numRows)
+    {
+        List<List<Integer>> trangle = new ArrayList<>();
+        if (numRows == 0) {
+            return trangle;
+        }
+        List<Integer> firstRow = new ArrayList<>();
+        firstRow.add(1);
+        trangle.add(firstRow);
+
+        for (int i=1; i<numRows; i++){
+            List<Integer> prev = trangle.get(i-1);
+            List<Integer> current = new ArrayList<>();
+            current.add(1);
+            for (int j=1; j<i; j++){
+                current.add(prev.get(j-1)+ prev.get(j));
+            }
+            current.add(1);
+            trangle.add(current);
+        }
+        return trangle;
     }
     // leetcode 137
     public static int singleNumber(int[] nums)
