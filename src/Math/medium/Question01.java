@@ -11,6 +11,7 @@ public class Question01 {
 
         System.out.println(integerBreak(10));
     }
+
     public static int integerBreak(int n)
     {
         if (n == 2 || n == 3) return (n -1);

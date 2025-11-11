@@ -7,14 +7,14 @@ public class maze {
        /// System.out.println(count(4, 4));
      //   path("", 3, 3);
         ArrayList<String> list = pathRet("", 3, 3);
-        System.out.println(list);
+      //  System.out.println(list);
         boolean board [][] = {
                 {true, true,true},
                 {true, true, true},
                 {true, true, true}
         };
-       // pathRestrictions("", board, 0, 0);
-       // allPath("", board, 0, 0);
+        //pathRestrictions("", board, 0, 0);
+        allPath("", board, 0, 0);
     }
 
     static void allPath(String p, boolean [][] maze, int r, int c)

@@ -16,7 +16,7 @@ public class patter {
 //         }
 //        System.out.println();
 //       }
-        square(n);
+     //   square(n);
       //  System.out.print(n);
     }
     static void square(int n)
