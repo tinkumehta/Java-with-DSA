@@ -16,6 +16,18 @@ public class question02 {
             this.right = right;
         }
     }
+    public boolean isBalanced(TreeNode root) {
+        return helper(root) != -1;
+    }
+    public int helper(TreeNode root){
+        if (root == null) return -1;
+        int leftHeight = helper(root.left);
+        if (leftHeight ==-1) return -1;
+        int rightHeight = helper(root.right);
+        if (rightHeight ==-1) return -1;
+        if (Math.abs(leftHeight- rightHeight) >1) return -1;
+        return 1+Math.max(leftHeight, rightHeight);
+    }
      public boolean isSymmertic(TreeNode root){
         if (root == null) return true;
         return isSmmertich(root.left, root.right);

@@ -6,11 +6,31 @@ import java.util.List;
 
 public class Question02 {
     public static void main(String[] args) {
-        int num[] = {3,3 ,3, 3};
-        System.out.println(findDuplate(num));
+        int num[] = {3,4,-1,1};
+        System.out.println(firstMissingPositive(num));
     }
-    // leetcode 287
-    public static int findDuplate(int num[])
+
+    // leetcode 41
+    public static int firstMissingPositive(int[] arr)
+    {
+        int i=0;
+        while (i <arr.length-1){
+            int correct = arr[i] -1;
+            if (arr[i] >0 && arr[i] <= arr.length && arr[i] != arr[correct] ){
+                swap(arr, i, correct);
+            } else {
+                i++;
+            }
+        }
+        for (int index =0; index<arr.length; index++){
+            if (arr[index] != index+1){
+                return index+1;
+            }
+        }
+        return arr.length+1;
+    }
+    // leetcode 287, 442
+    public static List<Integer> findDuplate(int num[])
     {
         int i=0;
         while (i < num.length - 1) {
@@ -21,12 +41,14 @@ public class Question02 {
                 i++;
             }
         }
+        List<Integer> ans = new ArrayList<>();
         for (int index =0; index<num.length; index++){
             if (num[index] != index+1){
-                return num[index];
+               // return num[index];
+                ans.add(num[index]);
             }
         }
-        return -1;
+        return ans;
     }
     // leetcode 448
     public static List<Integer> findDissparedArray(int nums[])
