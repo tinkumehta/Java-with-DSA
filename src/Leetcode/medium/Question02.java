@@ -6,10 +6,75 @@ import java.util.List;
 
 public class Question02 {
     public static void main(String[] args) {
-        int num[] = {3,4,-1,1};
-        System.out.println(firstMissingPositive(num));
+        //[["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]], word = "ABCCED"
+        char[][] maze = {
+                {'A', 'B', 'C','E'},
+                {'S', 'F', 'C', 'E'},
+                {'A', 'D', 'E', 'E'}
+        };
+        String word = "ABCCED";
+        System.out.println(exist(maze, word));
     }
 
+    // leetcode 79
+    public static boolean exist(char[][] board, String word)
+    {
+         for (int i=0; i<board.length; i++){
+             for (int j=0; j<board[0].length; j++){
+                 if (board[i][j] == word.charAt(0)){
+                     boolean ans = search(board, word, i, j, 0);
+                     if (ans){
+                         return true;
+                     }
+                 }
+             }
+         }
+         return false;
+    }
+    public static boolean search(char[][] board, String word, int row, int col, int idx)
+    {
+        if (idx == word.length()) {
+            return true;
+        }
+        if (row<0 || col <0 || row >= board.length ||
+                col >= board[0].length || board[row][col] != word.charAt(idx)){
+            return  false;
+        }
+        board[row][col] = '*';
+        int r[] = {-1, 1, 0, 0};
+        int c[] = {0, 0, -1, 1};
+        for (int i=0; i<c.length; i++){
+            boolean ans = search(board, word, row+r[i], col+c[i], idx+1);
+            if (ans) {
+                return true;
+            }
+        }
+        board[row][col] = word.charAt(idx);
+        return false;
+    }
+    // leetcode 1342
+    public static int numberOfStep(int num, int step){
+        if (num == 0) {
+            return step;
+        }
+        if (num % 2 == 0) {
+            return numberOfStep(num/2, step+1);
+        }
+        return numberOfStep(num-1, step+1);
+    }
+    // leetcode 832
+    public int[][] flipAndInvertImage(int[][] image)
+    {
+        for (int row[]: image){
+            for (int i=0; i<(image[0].length +1)/2; i++){
+                // swap
+                int temp = row[i] ^1;
+                row[i] = row[image[0].length -i-1] ^1;
+                row[image[0].length -i-1] = temp;
+            }
+        }
+        return image;
+    }
     // leetcode 41
     public static int firstMissingPositive(int[] arr)
     {
