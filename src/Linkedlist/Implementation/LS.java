@@ -1,5 +1,7 @@
 package Linkedlist.Implementation;
 
+;
+
 public class LS {
     // LS = LinkedList singly
     private Node head;
@@ -49,4 +51,49 @@ public class LS {
         tail = node;
         size++;
     }
+    private Node insertRec(int val, int index, Node node){
+        if (index == 0) {
+            Node temp = new Node(val, node);
+            size++;
+            return  temp;
+        }
+        node.next = insertRec(val, index--, node.next);
+        return node;
+    }
+    public int hasCycle(Node head) {
+        Node fast = head;
+        Node slow = head;
+        while(fast != null &&fast.next != null ){
+            fast = fast.next.next;
+            slow = slow.next;
+            if (fast == slow){
+               // calculate the length
+                Node temp = slow;
+                int length =0;
+                do{
+                    temp = temp.next;
+                    length++;
+                } while (temp != slow);
+                return length;
+            }
+        }
+        return 0;
+    }
+    private void reverse(Node node){
+        if (node == tail){
+            head = tail;
+            return;
+        }
+        reverse(node.next);
+        tail.next = node;
+        tail = node;
+        tail.next = null;
+    }
 }
+
+
+
+
+
+
+
