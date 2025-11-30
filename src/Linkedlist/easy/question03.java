@@ -72,6 +72,25 @@ public class question03 {
         tail.next = null;
     }
 
+    public int hasCycle(Node node){
+        Node f = node;
+        Node s = node;
+        while (f != null && f.next != null){
+            f = f.next.next;
+            s = s.next;
+            if (f == s) {
+                Node temp = s;
+                int length =0;
+                do {
+                    temp = temp.next;
+                    length++;
+                } while (s != temp);
+                return length;
+            }
+        }
+            return 0;
+
+    }
     public static void main(String[] args) {
         question03 q = new question03();
         q.insertFirst(5);

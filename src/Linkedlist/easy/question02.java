@@ -1,6 +1,6 @@
 package Linkedlist.easy;
 
-import Linkedlist.Implementation.LS;
+
 
 public class question02 {
    private class ListNode {
