@@ -1,9 +1,6 @@
 package Tree.Medium;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class question02 {
 
@@ -52,23 +49,23 @@ public class question02 {
         }
         return result;
     }
-    public Node connect(Node root)
-    {
-        if (root == null) return null;
-        Node leftMost = root;
-        while (leftMost.left != null) {
-            Node current = leftMost;
-            while (current != null) {
-                current.left.next = current.right;
-                if (current.next != null){
-                    current.right.next = current.next.left;
-                }
-                current = current.next;
-            }
-            leftMost = leftMost.left;
-        }
-        return root;
-    }
+//    public Node connect(Node root)
+//    {
+//        if (root == null) return null;
+//        Node leftMost = root;
+//        while (leftMost.left != null) {
+//            Node current = leftMost;
+//            while (current != null) {
+//                current.left.next = current.right;
+//                if (current.next != null){
+//                    current.right.next = current.next.left;
+//                }
+//                current = current.next;
+//            }
+//            leftMost = leftMost.left;
+//        }
+//        return root;
+//    }
     public List<Integer> rightSideView(TreeNode root) {
         List<Integer> result = new ArrayList<>();
         if (root == null) return result;
@@ -91,5 +88,30 @@ public class question02 {
             }
         }
         return result;
+    }
+
+    boolean findPath(TreeNode root, int arr[]){
+        if (root == null){
+            return arr.length ==0;
+        }
+        return helper(root, arr, 0);
+    }
+    boolean helper(TreeNode node, int arr[], int index){
+        if (node == null) {
+            return false;
+        }
+        if (index >= arr.length || node.val != arr[index]) return false;
+        if (node.left == null && node.right == null && index == arr.length-1) return true;
+        return helper(node.left, arr, index+1) || helper(node.right, arr, index+1);
+    }
+    void dfsStack(TreeNode node){
+        if (node == null) return;
+
+        Stack<TreeNode> stack = new Stack<>();
+        stack.push(node);
+        while (!stack.isEmpty()) {
+            TreeNode removed = stack.pop();
+            System.out.print(removed.val + " ");
+        }
     }
 }
