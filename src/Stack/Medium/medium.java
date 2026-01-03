@@ -3,9 +3,28 @@ import java.util.*;
 public class medium {
 
     public static void main(String[] args) {
-        int[] a = {1, 2, 3};
-        int[] b = {2, 1, 3};
-        System.out.println(checkPerm(a, b) ? "True" : "false");
+        System.out.println(validParthess("(()())(())"));
+    }
+    public  static  String validParthess (String s)
+    {
+        StringBuilder res = new StringBuilder();
+        char a [] = s.toCharArray();
+        int n = a.length;
+        int count =0;
+        for (int i=1; i<n; i++){
+            if (a[i] == '('){
+                res.append("(");
+                count++;
+            } else  {
+                if (count == 0) {
+                    i++;
+                } else {
+                    res.append(")");
+                    count--;
+                }
+            }
+        }
+        return res.toString();
     }
     static boolean checkPerm(int[] a, int[] b)
     {
